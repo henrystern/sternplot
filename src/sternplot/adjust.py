@@ -44,12 +44,19 @@ def annotate_trace_items(
     fig, use_colour=True, xshift=8, yshift=0, font_size=12
 ):
     """Replace the plot legend with annotations next to each item."""
-    for _, tr in enumerate(fig.data):
+    palette = (
+        fig.layout.colorway or fig.layout.template.layout.colorway
+        if use_colour
+        else None
+    )
+    for i, tr in enumerate(fig.data):
         if tr.x is None or len(tr.x) == 0:
             continue
         color = (
             tr.line.color
             if tr.line and tr.line.color and use_colour
+            else palette[i % len(palette)]
+            if use_colour and palette
             else (
                 fig.layout.font.color
                 or fig.layout.template.layout.font.color
@@ -71,13 +78,12 @@ def annotate_trace_items(
     return fig.update_layout(showlegend=False)
 
 
-def hide_legend_items(fig, to_keep=[], to_hide=[], patch={}):
+def hide_legend_items(fig, to_keep=[], to_hide=[]):
     """Hide traces that aren't in to_keep or are in to_hide."""
-    patch = dict(visible=True) | patch
     return fig.for_each_trace(
-        lambda x: x.update(patch if x.name not in to_hide else False)
+        lambda x: x.update(visible=True if x.name not in to_hide else False)
     ).for_each_trace(
-        lambda x: x.update(patch if x.name not in to_keep else True)
+        lambda x: x.update(visible=False if x.name not in to_keep else True)
     )
 
 
