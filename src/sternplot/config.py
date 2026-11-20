@@ -86,9 +86,10 @@ theme_colours = {
         gridlines=dracula["Selection"],
         shade="#313037",
         palette=dracula_palette,
+        logo=FAVICON_PATH,
     ),
     "economist": ThemeColourSpec(
-        background="#F1EEE5",
+        background="#EBEADF",
         foreground="#2C2E35",
         title="#2C2E35",
         gridlines="#CECFD1",
@@ -101,8 +102,11 @@ theme_colours = {
             "#B0B1B3",
             "#65666B",
         ],
-        xaxis_kwargs=dict(showgrid=False, ticks="outside"),
-        yaxis_kwargs=dict(showline=False, ticklabelposition="inside top"),
+        xaxis_kwargs=dict(showgrid=False, ticks="outside", zeroline=False),
+        yaxis_kwargs=dict(
+            showline=False, ticklabelposition="inside top", zeroline=False
+        ),
+        logo=FAVICON_PATH,
     ),
 }
 
