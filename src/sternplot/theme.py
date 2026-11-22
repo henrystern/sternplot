@@ -52,6 +52,7 @@ def set_plot_template(spec: ThemeColourSpec):
         linecolor=spec.foreground,
         gridcolor=spec.gridlines,
         linewidth=2,
+        fixedrange=True,  # Disable user zoom and pan
     )
     custom_template = go.layout.Template(
         layout=dict(
@@ -120,6 +121,9 @@ def get_config_options(filename_stem, overrides={}):
             "zoomin",
             "zoomout",
             "autoscale",
+            "zoom",
+            "pan",
+            "sendChartToCloud",
         ],
         "toImageButtonOptions": {"filename": filename_stem, "scale": 3},
         "responsive": False,
